@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import Shift from 'shift-ast';
+const Shift = require('shift-ast');
 
-export default class MonoidalReducer {
+module.exports = class MonoidalReducer {
   constructor(monoid) {
     let identity = monoid.empty();
     this.identity = identity;
@@ -123,7 +123,7 @@ export default class MonoidalReducer {
   }
 
   reduceCatchClause(node, { binding, body }) {
-    return this.append(binding, body);
+    return this.append(binding == null ? () => this.identity : binding, body);
   }
 
   reduceClassDeclaration(node, { name, super: _super, elements }) {
@@ -441,4 +441,4 @@ export default class MonoidalReducer {
   reduceYieldGeneratorExpression(node, { expression }) {
     return expression();
   }
-}
+};

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-export default function thunkify(reducer) {
+module.exports = function thunkify(reducer) {
   return {
     reduceArrayAssignmentTarget(node, { elements, rest }) {
       return reducer.reduceArrayAssignmentTarget(node, { elements: elements.map(n => n == null ? null : n()), rest: rest == null ? null : rest() });
@@ -94,7 +94,7 @@ export default function thunkify(reducer) {
     },
 
     reduceCatchClause(node, { binding, body }) {
-      return reducer.reduceCatchClause(node, { binding: binding(), body: body() });
+      return reducer.reduceCatchClause(node, { binding: binding == null ? null : binding(), body: body() });
     },
 
     reduceClassDeclaration(node, { name, super: _super, elements }) {
@@ -413,4 +413,4 @@ export default function thunkify(reducer) {
       return reducer.reduceYieldGeneratorExpression(node, { expression: expression() });
     },
   };
-}
+};

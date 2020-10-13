@@ -16,7 +16,7 @@
 
 'use strict';
 
-const spec = require('shift-spec').default;
+const spec = require('shift-spec');
 const { makeHeader, isStatefulType } = require('../lib/utilities.js');
 
 function buildContent(isThunked) {
@@ -58,9 +58,9 @@ const director = {`;
 
   content += `};
 
-export function ${isThunked ? 'thunkedReduce' : 'reduce'}(reducer, node) {
+module.exports = function ${isThunked ? 'thunkedReduce' : 'reduce'}(reducer, node) {
   return director[node.type](reducer, node);
-}
+};
 `;
 
   return content;

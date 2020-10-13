@@ -16,13 +16,13 @@
 
 'use strict';
 
-const spec = require('shift-spec').default;
+const spec = require('shift-spec');
 const { makeHeader } = require('../lib/utilities.js');
 
 let content = `${makeHeader(__filename)}
-import * as Shift from 'shift-ast';
+const Shift = require('shift-ast');
 
-export default (fn, reducer) => ({
+module.exports = (fn, reducer) => ({
   __proto__: reducer,
 ${Object.keys(spec).map(typeName => `
   reduce${typeName}(node, data) {

@@ -16,13 +16,13 @@
 
 'use strict';
 
-const spec = require('shift-spec').default;
+const spec = require('shift-spec');
 const { makeHeader, isStatefulType } = require('../lib/utilities.js');
 
 let content = `${makeHeader(__filename)}
-import * as Shift from 'shift-ast';
+const Shift = require('shift-ast');
 
-export default function memoize(reducer) {
+module.exports = function memoize(reducer) {
   const cache = new WeakMap;
   return {`;
 
@@ -44,7 +44,7 @@ for (let typeName of Object.keys(spec)) {
 }
 
 content += `  };
-}
+};
 `;
 
 require('fs').writeFileSync('gen/memoize.js', content, 'utf-8');
